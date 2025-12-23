@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:note_app/pages/checklist/checklist.dart';
+import 'package:note_app/pages/checklist/check_list_page.dart';
 
 void main() {
   runApp(
-    MaterialApp(
-      home: CheckList(),
+    const MaterialApp(
+      home: CheckListPage(),
     ),
   );
 }

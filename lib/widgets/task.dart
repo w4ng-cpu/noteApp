@@ -5,28 +5,58 @@ class Task extends StatefulWidget {
   const Task(this.taskModel, {super.key});
 
   final TaskModel taskModel;
-  
+
   @override
   State<StatefulWidget> createState() {
-    return _Task();
+    return _TaskState();
   }
 }
 
-class _Task extends State<Task> {
+class _TaskState extends State<Task> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16.0),
-      color: Colors.grey[200],
-      child: Column(
+      margin: const EdgeInsets.only(bottom: 8.0),
+      padding: const EdgeInsets.all(8.0),
+      decoration: BoxDecoration(
+        color: Colors.grey[200],
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Text(
-            widget.taskModel.name,
-            overflow: TextOverflow.ellipsis,
+          Checkbox(
+            value: widget.taskModel.isCompleted,
+            onChanged: (value) {
+              setState(() {
+                widget.taskModel.isCompleted = value ?? false;
+              });
+            },
           ),
-          Text(
-            widget.taskModel.description ?? '',
-            overflow: TextOverflow.ellipsis,
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  widget.taskModel.name,
+                  overflow: TextOverflow.fade,
+                  softWrap: false,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w500,
+                    decoration: widget.taskModel.isCompleted ? TextDecoration.lineThrough : TextDecoration.none,
+                  ),
+                ),
+                Text(
+                  widget.taskModel.description ?? '',
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: false,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
