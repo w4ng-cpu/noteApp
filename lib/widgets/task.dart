@@ -15,14 +15,8 @@ class Task extends StatefulWidget {
 class _TaskState extends State<Task> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8.0),
-      padding: const EdgeInsets.all(8.0),
-      decoration: BoxDecoration(
-        color: Colors.grey[200],
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Row(
+    return ListTile(
+      title: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Checkbox(
@@ -43,7 +37,9 @@ class _TaskState extends State<Task> {
                   softWrap: false,
                   style: TextStyle(
                     fontWeight: FontWeight.w500,
-                    decoration: widget.taskModel.isCompleted ? TextDecoration.lineThrough : TextDecoration.none,
+                    decoration: widget.taskModel.isCompleted
+                        ? TextDecoration.lineThrough
+                        : TextDecoration.none,
                   ),
                 ),
                 Text(
