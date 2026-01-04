@@ -84,7 +84,6 @@ class _CheckListPageState extends State<CheckListPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const SizedBox(height: 10),
                 TextButton(
                   style: const ButtonStyle(
                     padding: WidgetStatePropertyAll<EdgeInsets>(
@@ -98,7 +97,13 @@ class _CheckListPageState extends State<CheckListPage> {
                       isScrollControlled: true,
                       context: context,
                       builder: (BuildContext context) {
-                        return const AddTaskBottomSheet();
+                        return AddTaskBottomSheet(
+                          onAdd: (TaskModel task) {
+                            setState(() {
+                              tasks.add(task);
+                            });
+                          },
+                        );
                       },
                     )
                   },
