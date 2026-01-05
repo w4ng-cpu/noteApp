@@ -67,7 +67,7 @@ class _AddTaskBottomSheetState extends State<AddTaskBottomSheet> {
             ),
           ),
           const SizedBox(height: 16),
-          TextButton(
+          ElevatedButton(
             onPressed: () {
               createTask();
               Navigator.of(context).pop();

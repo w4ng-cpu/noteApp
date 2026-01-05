@@ -19,15 +19,25 @@ class _TaskState extends State<Task> {
       title: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
-          Checkbox(
-            value: widget.taskModel.isCompleted,
-            onChanged: (value) {
-              setState(() {
-                widget.taskModel.isCompleted = value ?? false;
-              });
-            },
+          SizedBox(
+            height: 30,
+            width: 30,
+            child: Transform.scale(
+              scale: 1.4,
+              child: Checkbox(
+                value: widget.taskModel.isCompleted,
+                splashRadius: 50,
+                shape: const CircleBorder(),
+                onChanged: (value) {
+                  setState(() {
+                    widget.taskModel.isCompleted = value ?? false;
+                  });
+                },
+              ),
+            ),
           ),
-          Flexible(
+          const SizedBox(width: 20),
+          Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -53,6 +63,14 @@ class _TaskState extends State<Task> {
                 ),
               ],
             ),
+          ),
+          SizedBox(
+            width: 10,
+            child: FloatingActionButton.small(
+                onPressed: () {},
+                elevation: 0,
+                backgroundColor: Colors.transparent,
+                child: const Icon(Icons.more_vert_rounded)),
           ),
         ],
       ),

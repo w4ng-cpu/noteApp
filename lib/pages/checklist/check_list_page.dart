@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:note_app/models/task_model.dart';
-import 'package:note_app/widgets/task.dart';
+import 'package:note_app/widgets/task_list.dart';
 import 'package:note_app/widgets/add_task_bottom_sheet.dart';
 
 class CheckListPage extends StatefulWidget {
@@ -44,11 +44,10 @@ class _CheckListPageState extends State<CheckListPage> {
       body: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-// Task List Section
             Expanded(
-              child: ReorderableListView(
+              child: TaskList(
+                tasks: tasks,
                 onReorder: (oldIndex, newIndex) {
                   setState(() {
                     if (newIndex > oldIndex) {
@@ -58,57 +57,40 @@ class _CheckListPageState extends State<CheckListPage> {
                     tasks.insert(newIndex, item);
                   });
                 },
-                children: [
-                  for (final task in tasks)
-                    Container(
-                      margin: const EdgeInsets.symmetric(vertical: 4.0),
-                      key: ValueKey(task.order),
-                      decoration: BoxDecoration(
-                        // color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(8.0),
-                        gradient: LinearGradient(
-                          colors: [
-                            Colors.grey.shade300,
-                            Colors.grey.shade100,
-                          ],
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                        ),
-                      ),
-                      child: Task(task),
-                    ),
-                ],
               ),
             ),
-// New Task Input Section Below
             Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                TextButton(
-                  style: const ButtonStyle(
-                    padding: WidgetStatePropertyAll<EdgeInsets>(
-                        EdgeInsets.all(24.0)),
-                    backgroundColor: WidgetStatePropertyAll<Color>(Colors.blue),
-                    foregroundColor:
-                        WidgetStatePropertyAll<Color>(Colors.white),
-                  ),
-                  onPressed: () => {
-                    showModalBottomSheet<void>(
-                      isScrollControlled: true,
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AddTaskBottomSheet(
-                          onAdd: (TaskModel task) {
-                            setState(() {
-                              tasks.add(task);
-                            });
-                          },
-                        );
-                      },
-                    )
-                  },
-                  child: const Text(
-                    'New Task',
+                Container(
+                  margin: const EdgeInsets.only(top: 10.0),
+                  child: ElevatedButton(
+                    style: const ButtonStyle(
+                      padding: WidgetStatePropertyAll<EdgeInsets>(
+                          EdgeInsets.all(24.0)),
+                      backgroundColor:
+                          WidgetStatePropertyAll<Color>(Colors.blue),
+                      foregroundColor:
+                          WidgetStatePropertyAll<Color>(Colors.white),
+                    ),
+                    onPressed: () {
+                      showModalBottomSheet<void>(
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AddTaskBottomSheet(
+                            onAdd: (TaskModel task) {
+                              setState(() {
+                                tasks.add(task);
+                              });
+                            },
+                          );
+                        },
+                      );
+                    },
+                    child: const Text(
+                      'New Task',
+                    ),
                   ),
                 ),
               ],
