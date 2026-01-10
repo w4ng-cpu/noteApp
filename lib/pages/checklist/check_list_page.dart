@@ -57,6 +57,11 @@ class _CheckListPageState extends State<CheckListPage> {
                     tasks.insert(newIndex, item);
                   });
                 },
+                onRemoveTask: (TaskModel task) {
+                  setState(() {
+                    tasks.remove(task);
+                  });
+                },
               ),
             ),
             Column(
